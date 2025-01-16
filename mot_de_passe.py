@@ -22,7 +22,7 @@ def force_brute(file ,ensemble, max_length):
                             print(f"mot de passe trouve : {password}")
                             return True
                         except(RuntimeError, pyzipper.zipfile.BadZipFile):
-                            print(f"Échec avec : {password}")
+                            
                             pass
 
             print("Mot de passe non trouve dans les combinaisons generees")
@@ -39,7 +39,8 @@ def force_brute(file ,ensemble, max_length):
 zip_file ="test.zip"
 ensemble = string.ascii_letters + string.digits+".,;:'!@%#$*"
 max_length = int(input("entrer la longueur maximal d'une combinaison"))
-end_time=time.time()
+start_time=time.time()
 force_brute (zip_file,ensemble,max_length)
+end_time=time.time()
 print(ensemble)
-print(f"le temps est egale ={end_time-start_time}")
+print(f"le temps de recherche est de :{end_time-start_time}")
