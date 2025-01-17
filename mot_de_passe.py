@@ -12,7 +12,7 @@ def force_brute(file ,ensemble, max_length):
         try:
             # Extract the zip file
             with pyzipper.AESZipFile(file) as zf:
-                print ("la recherche du mot de passe a commencer")
+                print ("la recherche du mot de passe a commencée")
                 for length in range(1, max_length+1):
                     print(f"test des mot de passe de longueur {length}")
                     for password in itertools.product(ensemble, repeat=length):
@@ -21,14 +21,14 @@ def force_brute(file ,ensemble, max_length):
                             # Try the password
                             zf.setpassword(password.encode('utf-8')) 
                             zf.testzip()
-                            print(f"mot de passe trouve : {password}")
-                            print(f"echec avec {i} mots")
+                            print(f"mot de passe trouvé : {password}")
+                            print(f"échec avec {i} mots")
                             return True
                         except(RuntimeError, pyzipper.zipfile.BadZipFile):
                             i+=1
                             pass
 
-            print("Mot de passe non trouve dans les combinaisons generees")
+            print("Mot de passe non trouve dans les combinaisons generées")
             
         except FileNotFoundError as e:
             print(f"Erreur :{e}")
@@ -51,6 +51,7 @@ def force_brute(file ,ensemble, max_length):
                         print("Le fichier .rar est invalide ou corrompu.")
                         return False
                     except rarfile.RarWrongPassword:
+                        i+=1
                         pass  # Continuer la recherche si le mot de passe est incorrect
             print("Mot de passe non trouvé dans les combinaisons générées.")
         except FileNotFoundError:
@@ -75,6 +76,7 @@ def force_brute(file ,ensemble, max_length):
                         print("Le fichier .7z est invalide ou corrompu.")
                         return False
                     except py7zr.PasswordError:
+                        i+=1
                         pass  # Continuer la recherche si le mot de passe est incorrect
             print("Mot de passe non trouvé dans les combinaisons générées.")
         except FileNotFoundError:
